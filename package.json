@@ -1,0 +1,28 @@
+{
+  "name": "metorrent",
+  "version": "1.0.0",
+  "description": "A torrent client built using Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parulc7/MeTorrent.git"
+  },
+  "keywords": [
+    "Torrent",
+    "Node.js",
+    "Torrent",
+    "Client"
+  ],
+  "author": "Parul Chandel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/parulc7/MeTorrent/issues"
+  },
+  "homepage": "https://github.com/parulc7/MeTorrent#readme",
+  "dependencies": {
+    "bencode": "^2.0.1"
+  }
+}
