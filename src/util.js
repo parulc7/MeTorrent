@@ -3,6 +3,7 @@
 const crypto = require('crypto');
 let id = null;
 
+// Function to generate random peer_id
 module.exports.genId = ()=>{
     if(!id){
         id = crypto.randomBytes(20);

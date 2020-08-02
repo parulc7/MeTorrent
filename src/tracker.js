@@ -98,7 +98,36 @@ function buildAnnounceRequest(connId, torrent, port=6881){
     return buff;
 }
 
+// Function to parse announce response
+function parseAnnounceResp(res){
+    function group(iterable, groupsize){
+        let groups = [];
+        for(let i=0;i<iterable.length;i+=groupsize){
+            groups.push(iterable.slice(i, i+groupsize));
+        }
+        return groups;
+    }
 
+    return {
+        action: res.readUInt32BE(0),
+        transactionId:res.readUInt32BE(4),
+        leechers:res.readUInt32BE(8),
+        seeders:res.readUInt32BE(12),
+        peers:group(res.slice(20), 6).map(address =>{
+            return {
+                ip:address.slice(0,4).join('.'),
+                port:address.readUInt16BE(4)
+            }
+        })
+    }
+}
+
+// Function to return the response type - connect or announce
+function respType(res){
+    const action = res.readUInt32BE(0);
+    if(action===0) return 'connect';
+    if(action===1) return 'announce';
+}
 
 module.exports.getPeers = (torrent, callback) =>{
     const socket = dgram.createSocket('udp-4');

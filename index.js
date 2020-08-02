@@ -1,16 +1,9 @@
-"use strict"
+'use strict';
 
-// Required Modules
-const fs = require('fs');
-const bencode = require('bencode');
-const tracker = require('./tracker');
-// Decoding the Torrent File
-// readFileSync returns a buffer
-// We decode the buffer using Bencode serialization format, which is exclusive to torrent files
-const torrent = bencode.decode(fs.readFileSync('puppy.torrent'));
+const download = require('./src/download');
+const torrentParser = require('./src/torrent-parser');
 
-// Use the getPeers function from Tracker Protocol File to get the peers
-tracker.getPeers(torrent, peers=>{
-    console.log(peers);
-});
-
+// Get torrent file name from command line 2nd argument
+const torrent = torrentParser.open(process.argv[2]);
+// Run download protocol on the torrent file
+download(torrent);
